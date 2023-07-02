@@ -1,0 +1,55 @@
+SITE: PRG
+INPUT_obs:
+    PATH: /home/ldiantonio/OPTCRI
+    PATH_INPUTS: inputs
+    DATA_INPUT: PRG/CTRL_mean_SMPS
+    particle_size_distribution: #dN/dlOG  #/cm3 units or dV/dlog um3/cm3 expected TIME+diameters midpoints columns
+        filename: particle_size_distribution_CTRL.csv
+        diameters: size_diameters.dat
+        type: number #volume or number
+        units: nm
+        shape_factor: shape_factor.dat
+    absorption:
+        filename: absorption_CTRL.csv
+        cref: 
+            cref_correction: 1
+            cref_corr_type: 1 #0 use cref_factor 1 # Yus-DIez et al, 2021 
+            cref_standard: 1.39
+            cref_factor: 2.80 #2.52 #
+            Cf: 2.50 # Yus-diez et al, 2021 
+            ms: 1.6
+            wl_ssa: 660
+        units: Mm-1
+        factor: 1
+    scattering:
+        filename: scattering_CTRL.csv
+        units: Mm-1
+        factor: 1
+    time_dimension: TIME #name of the time dimension must be all in UTC
+INPUT_opt:
+    nmin: 1.2
+    nmax: 2
+    dnx: 0.01
+    kmin: 0.
+    kmax: 0.2
+    dkx: 0.001
+    nwavel: 7
+    wl: wl_input.dat #wavelength in nm
+    Csca_calculation: 1
+    tmin: 9 #min angle nephelometer inputs
+    tmax: 170 #max angle between 0 and 180
+    nt: 300 #nangles
+LUT:
+    LUT_folder: /home/ldiantonio/OPTCRI/inputs/LUT
+    LUT_flag: 0 #Put 1 if LUT are present
+OUTPUTS:
+    PATH_OUT: /DATA/CHIMERE/OUTPUT/LDIANTONIO/OPTCRIOUT/PRG/CTRL_mean_SMPS_crefyus
+    lab:  CTRL
+    save_out: 1
+    plot_inputs: 0
+    plot_outputs: 1
+    plot_size: 0
+PERIOD:
+    dstart: '2022-06-18 00:00:00'
+    dend: '2022-06-19 00:00:00'
+verbose: 0
