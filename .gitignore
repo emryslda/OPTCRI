@@ -5,6 +5,7 @@ inputs/data/PRG
 inputs/aux_inputs/*
 !inputs/aux_inputs/PRG/*
 inputs/LUT
+inputs/config/input.yaml
 outputs
 .ipynb_checkpoints
 #Files
