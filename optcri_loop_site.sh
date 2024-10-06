@@ -2,22 +2,33 @@
 export PYTHONUNBUFFERED=true
 
 module load anaconda3-py/
-conda activate ldiantonio
 
-firstdate=20220618
-lastdate=20220619
+env_name="OPTCRI"
+
+conda activate $env_name
+echo "Loaded conda $env_name environment"
+
+
+firstdate=20220619
+lastdate=20220620 #726
 ndays=1
-site_list="PRG" #RAMB SIRTA"
-
+site_list="PRG"
+sim_list="median" #median mean q1 q3 errm errp"
+#sim_list="median"
 #########################END USER INPUT
 
 dir=$PWD
 export my_awk=awk
 
+
+for sim in $sim_list;do
+
 for site in $site_list;do
 	echo "Processing...$site"
 
 	export optcriparams=optcri.$site.par
+        cat optcri.$site.sed | sed "s|__SIMLAB__|${sim}|" \
+                        >  $optcriparams
 	echo "period:${firstdate}-${lastdate}"
 	make clean
 	export optcriparash=${optcriparams}.sh
@@ -85,9 +96,11 @@ for site in $site_list;do
 	   				 > ${dir}/src/config/input.yaml
 	   cd ${dir}/src/model
 	   
+	   #python OPTCRI_test.py #|| exit 1 
 	   python OPTCRI.py || exit 1 
 	   
 	   di=`date -u -d "$di $ndays days" +%Y%m%d`
 	   cd $dir
 	done
+done
 done

@@ -1,7 +1,13 @@
+#Folders
+
 inputs/data
 inputs/aux_inputs
+!inputs/aux_inputs/PRG
 inputs/LUT
 outputs
+
+#Files
 *.log
 *.out
 *.err
+src/model/OPTCRI_test.py

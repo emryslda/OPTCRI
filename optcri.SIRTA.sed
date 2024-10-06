@@ -9,7 +9,7 @@
 # Input observations
 
  [$dir]         Input directory                                                                                           : /home/ldiantonio/OPTCRI
- [$sitelab]     Site name                                                                                                 : PRG 
+ [$sitelab]     Site name                                                                                                 : SIRTA 
  [$labelsim]    Simulation label                                                                                          : CTRL 
  [$inputf]      input folder (data, aux)                                                                                  : inputs
 
@@ -19,7 +19,7 @@
  [$size_filename]    size distribution filename containing data                                                           : particle_size_distribution_${labelsim}.csv
  [$size_diam]        size distribution filename containing D,dlo                                                          : size_diameters.dat 
  [$size_type]        number dN/dlog (#/cm3), volume dV/log (um3/cm3)                                                      : number
- [$size_stat]        mean/median/q1/q3                                                                                    : median
+ [$size_stat]        mean/median/q1/q3                                                                                    : __SIMLAB__
  [$shapef]           shape_factor                                                                                         : shape_factor.dat 
  [$unitsize]         units size distribution diameters  (nm/um)                                                           : nm
 
@@ -70,7 +70,7 @@
 
 # Output directory 
 
- [$commdir]          Output main directory                                                                                : /DATA/CHIMERE/OUTPUT/LDIANTONIO/OPTCRIOUT/test${sitelab} 
+ [$commdir]          Output main directory                                                                                : /DATA/CHIMERE/OUTPUT/LDIANTONIO/OPTCRIOUT/${sitelab} 
  [$outputdir]        Output folder name      (full_path)                                                                  : ${commdir}/${labelsim}_${size_stat}_${lab_size}_cref2.45
 
 # Save and plot

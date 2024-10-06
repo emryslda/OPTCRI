@@ -19,7 +19,7 @@
  [$size_filename]    size distribution filename containing data                                                           : particle_size_distribution_${labelsim}.csv
  [$size_diam]        size distribution filename containing D,dlo                                                          : size_diameters.dat 
  [$size_type]        number dN/dlog (#/cm3), volume dV/log (um3/cm3)                                                      : number
- [$size_stat]        mean/median/q1/q3                                                                                    : median
+ [$size_stat]        mean/median/q1/q3                                                                                    : __SIMLAB__
  [$shapef]           shape_factor                                                                                         : shape_factor.dat 
  [$unitsize]         units size distribution diameters  (nm/um)                                                           : nm
 

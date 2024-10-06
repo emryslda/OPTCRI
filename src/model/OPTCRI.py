@@ -7,7 +7,7 @@ print("")
 print(f.renderText('OPTCRI'))
 print("author: Di Antonio Ludovico")
 print("mail: ludovico.diantonio@lisa.ipsl.fr")
-print("")
+print("OPTCRI V1.0")
 
 
 import yaml
@@ -70,21 +70,9 @@ plot_inputs=inputs["OUTPUTS"]["plot_inputs"]
 plot_outputs=inputs["OUTPUTS"]["plot_outputs"]
 plot_size=inputs["OUTPUTS"]["plot_size"]
 
-###################################################################################
-LUT=inputs["LUT"]["LUT_flag"]
-
-if LUT==0:
-    try:
-        np.load(LUT_path+"/"+"qext_"+comm+".npy")
-        print("LUT present...please use LUT_flag=1 or delete the existing files")
-        sys.exit()
-    except:
-        pass
-LUT_path=inputs["LUT"]["LUT_folder"]
-###################################################################################
 
 
-# LOAD SIZE DISTRIBUTION DATA
+# LOAD diameters for size distribution
 
 diamdlogf=inputs["INPUT_obs"]['particle_size_distribution']["diameters"]
 diamdlog=pd.read_csv(aux_path+"/"+diamdlogf,sep="\t")
@@ -105,6 +93,10 @@ print("")
 diam=diam/np.array(shape_factor)
 
 
+fmt="%Y-%m-%d %H:%M:%S" #date format
+
+
+
 #LOAD SIZE DISTRIBUTION DATA
 colnames=[tlab]+scol
 filename=data_path+"/"+inputs["INPUT_obs"]['particle_size_distribution']["filename"]
@@ -113,7 +105,7 @@ PSD=pd.read_csv(filename,sep="\t")
 PSD.columns=colnames
 print("Reading size:",filename)
 print("size type chosen:",tsize)
-PSD[tlab]=PSD[tlab].apply(lambda x: pd.to_datetime(x,format="%Y-%m-%d %H:%M"))
+PSD[tlab]=PSD[tlab].apply(lambda x: pd.to_datetime(x,format=fmt))
 PSD=PSD[(PSD[tlab]>=dstart) & (PSD[tlab]<dend)]
 
 if tsize=="volume":
@@ -135,13 +127,15 @@ for iwl in range(0,len(wavel)):
     scac.append("SCA_COEFF("+str(wavel[iwl])+")")
     wl_list.append(str(wavel[iwl]))
 
+
+
 # READING ABSORPTION
 colnames=[tlab]+absc
 filename=data_path+"/"+inputs["INPUT_obs"]['absorption']["filename"]
 print("Reading abs:",filename)
 absorption=pd.read_csv(filename,sep="\t")
 absorption.columns=colnames
-absorption[tlab]=absorption[tlab].apply(lambda x: pd.to_datetime(x,format="%Y-%m-%d %H:%M"))
+absorption[tlab]=absorption[tlab].apply(lambda x: pd.to_datetime(x,format=fmt))
 absorption=absorption[(absorption[tlab]>=dstart) & (absorption[tlab]<dend)]
 absorption.index=np.arange(0,len(absorption))
 
@@ -155,7 +149,7 @@ filename=data_path+"/"+inputs["INPUT_obs"]['scattering']["filename"]
 scattering=pd.read_csv(filename,sep="\t")
 scattering.columns=colnames
 print("Reading sca:",filename)
-scattering[tlab]=scattering[tlab].apply(lambda x: pd.to_datetime(x,format="%Y-%m-%d %H:%M"))
+scattering[tlab]=scattering[tlab].apply(lambda x: pd.to_datetime(x,format=fmt))
 scattering=scattering[(scattering[tlab]>=dstart) & (scattering[tlab]<dend)]
 scattering.index=np.arange(0,len(scattering))
 if (len(scattering.columns)!=len(wavel)+1):
@@ -182,6 +176,8 @@ print(absorption.head())
 print("Scattering")
 print(scattering.head())
 print("Size")
+print(number.iloc[0])
+print("")
 print(number.head())
 
 
@@ -427,7 +423,7 @@ kmax=inputs["INPUT_opt"]["kmax"]
 pnx=inputs["INPUT_opt"]["dnx"]
 pkx=inputs["INPUT_opt"]["dkx"]
 nwavel=inputs["INPUT_opt"]["nwavel"]
-comm=form(nmin)+"_"+form(nmax)+"_"+form(kmin)+"_"+form(kmax)+"_"+form(pnx)+"_"+form(pkx)+"_"+str(nwavel)
+comm=form(nmin)+"_"+form(nmax)+"_"+form(kmin)+"_"+form(kmax)+"_"+form(pnx)+"_"+form(pkx)+"_"+str(nwavel)+"_"+str(len(diam))
 
 tmin=inputs["INPUT_opt"]["tmin"]#min angle
 tmax=inputs["INPUT_opt"]["tmax"] #max angle between 0 and 180
@@ -451,15 +447,15 @@ csca=init_csca(df_m,wavel,sizep)
 
 
 
-#LUT=inputs["LUT"]["LUT_flag"]
-#if LUT==0:
-#    try:
-#        np.load(LUT_path+"/"+"qext_"+comm+".npy")
-#        print("LUT present...please use LUT_flag=1 or delete the existing files")
-#        sys.exit()
-#    except:
-#        pass
-#LUT_path=inputs["LUT"]["LUT_folder"]
+LUT=inputs["LUT"]["LUT_flag"]
+if LUT==0:
+    try:
+        np.load(LUT_path+"/"+"qext_"+comm+".npy")
+        print("LUT present...please use LUT_flag=1 or delete the existing files")
+        sys.exit()
+    except:
+        pass
+LUT_path=inputs["LUT"]["LUT_folder"]
 
 ntime=len(df_m)
 nwl=len(wavel)
@@ -580,8 +576,8 @@ if save_out==1:
                            "SSA_corr":(["time","nwl"],SSA_tcorr),
                            "particle_size_distribution":(["time","diameters"],df_m[scol])}, 
     coords=dict(time=df_m.reset_index()[tlab].values,nwl=wavel,diameters=diam))
-
-    fout=PATH_OUT+"/CRI_MODEL_"+lab+'_'+douts+"_"+doute+".nc"
+    pathlib.Path(PATH_OUT+"/netCDF").mkdir(parents=True, exist_ok=True)
+    fout=PATH_OUT+"/netCDF/CRI_MODEL_"+lab+'_'+douts+"_"+doute+".nc"
     print("Saving n,k and outputs to netcdf: "+fout)
     outputs.to_netcdf(fout)
 

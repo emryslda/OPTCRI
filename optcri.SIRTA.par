@@ -9,7 +9,7 @@
 # Input observations
 
  [$dir]         Input directory                                                                                           : /home/ldiantonio/OPTCRI
- [$sitelab]     Site name                                                                                                 : SIRTA
+ [$sitelab]     Site name                                                                                                 : SIRTA 
  [$labelsim]    Simulation label                                                                                          : CTRL 
  [$inputf]      input folder (data, aux)                                                                                  : inputs
 
@@ -19,7 +19,7 @@
  [$size_filename]    size distribution filename containing data                                                           : particle_size_distribution_${labelsim}.csv
  [$size_diam]        size distribution filename containing D,dlo                                                          : size_diameters.dat 
  [$size_type]        number dN/dlog (#/cm3), volume dV/log (um3/cm3)                                                      : number
- [$size_stat]        mean/q1/q3                                                                                           : mean
+ [$size_stat]        mean/median/q1/q3                                                                                    : errp
  [$shapef]           shape_factor                                                                                         : shape_factor.dat 
  [$unitsize]         units size distribution diameters  (nm/um)                                                           : nm
 
@@ -27,12 +27,12 @@
 
  [$absf]               Absorption filename                                                                                : absorption_${labelsim}.csv
  [$cref_correction]  cref correction  (0/1)                                                                               : 1
- [$cref_correction_type] (0/1/2)                                                                                          : 0 
+ [$cref_correction_type] (0/1)                                                                                            : 0
  [$cref_standard]  cref filter tape standard FF (ACTRIS=1.39)                                                             : 1.39 
- [$cref_factor]    cref factor for simple correction (cref_correction_type=1)                                             : 2.80
- [$Cf]             Valid only if cref_correction_type=2                                                                   : 2.50
- [$ms]             Valid only if cref_correction_type=2                                                                   : 1.6
- [$wl_ssa]         Valid only if cref_correction_type=2/wavelength for SSA calculation for Yus diez, 2021                 : 2
+ [$cref_factor]    cref factor for simple correction (cref_correction_type=0)                                             : 2.45
+ [$Cf]             Valid only if cref_correction_type=1                                                                   : 2.50
+ [$ms]             Valid only if cref_correction_type=1                                                                   : 1.6
+ [$wl_ssa]         Valid only if cref_correction_type=1/wavelength (in nm) for SSA calculation for Yus diez, 2021         : 660
  [$absfactor]      absorption factor for sensitivity test                                                                 : 1
  [$unitabs]        absorption units (Mm-1/m-1)                                                                            : Mm-1
 
@@ -50,7 +50,7 @@
 
 # Complex refractive index input parameters
 
- [$nmin]             Minimum n for the retrievals                                                                         : 1.3
+ [$nmin]             Minimum n for the retrievals                                                                         : 1.2
  [$nmax]             Maximum n for the retrievals                                                                         : 2      
  [$dnx]              dn for iteration (0.01 suggested)                                                                    : 0.01
  [$kmin]             Minimum k for the retrievals                                                                         : 0.
@@ -71,7 +71,7 @@
 # Output directory 
 
  [$commdir]          Output main directory                                                                                : /DATA/CHIMERE/OUTPUT/LDIANTONIO/OPTCRIOUT/${sitelab} 
- [$outputdir]        Output folder name      (full_path)                                                                  : ${commdir}/${labelsim}_${size_stat}_${lab_size}_cref2.80
+ [$outputdir]        Output folder name      (full_path)                                                                  : ${commdir}/${labelsim}_${size_stat}_${lab_size}_cref2.45
 
 # Save and plot
 
@@ -79,4 +79,4 @@
  [$pin]              plot inputs                                                                                          : 0
  [$pout]             plot outputs                                                                                         : 1
  [$pout_size]        plot size                                                                                            : 0
- [$verbose]          (0/1/2)                                                                                              : 0
+ [$verbose]          (0/1/2)                                                                                              : 2
