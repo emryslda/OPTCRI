@@ -8,7 +8,7 @@
 
 # Input observations
 
- [$dir]         Input directory                                                                                           : /home/ldiantonio/OPTCRI
+ [$dir]         Input directory                                                                                           : $PWD
  [$sitelab]     Site name                                                                                                 : PRG 
  [$labelsim]    Simulation label                                                                                          : CTRL 
  [$inputf]      input folder (data, aux)                                                                                  : inputs

@@ -1,6 +1,6 @@
 # DO NOT CHANGE!
 
-export dir='/home/ldiantonio/OPTCRI'
+export dir='$PWD'
 export sitelab='PRG'
 export labelsim='CTRL'
 export inputf='inputs'
