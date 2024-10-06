@@ -27,7 +27,7 @@ for site in $site_list;do
 	echo "Processing...$site"
 
 	export optcriparams=optcri.$site.par
-        cat optcri.$site.sed | sed "s|__SIMLAB__|${sim}|" \
+        cat examples/optcri.$site.sed | sed "s|__SIMLAB__|${sim}|" \
                         >  $optcriparams
 	echo "period:${firstdate}-${lastdate}"
 	make clean

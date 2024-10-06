@@ -13,7 +13,7 @@ export firstdate=20220619
 export lastdate=20220620 #726
 export ndays=1
 export site_list="PRG"
-export sim_list="median" #median mean q1 q3 errm errp"
+export sim_list="median" #median mean q1 q3 errm errp" #list of sims that ouy dfine in the input data 
 
 
 echo "Start Optical calculation..."
