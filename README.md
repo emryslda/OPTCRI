@@ -9,7 +9,6 @@
 author: Di Antonio Ludovico
 
 mail: ludovico.diantonio@lisa.ipsl.fr
-OPTCRI V1.0
 
 ---
 
@@ -65,6 +64,25 @@ and launch the program as:
 ```bash
 ./run.sh
 ```
+
+or you can run the program by modifying the opticri.sh file:
+
+```bash
+module load anaconda3-py/
+env_name=OPTCRI
+conda activate $env_name
+
+firstdate=20220618
+lastdate=20220619
+ndays=1
+```
+
+and launch 
+```bash
+./optcri.sh optcri.par
+```
+
+LEVEL 2 input data are avaialable at https://across.aeris-data.fr/
 
 Please, report any issues to @mail
 

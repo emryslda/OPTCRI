@@ -1,7 +1,8 @@
 #!/bin/bash
 
 module load anaconda3-py/
-conda activate ldiantonio
+env_name=OPTCRI
+conda activate $env_name
 
 firstdate=20220618
 lastdate=20220725
