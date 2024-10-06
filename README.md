@@ -86,6 +86,7 @@ Absorption, scattering and particle size distribution LEVEL 2 input data are ava
 ### Reference
 
 Di Antonio, L., Di Biagio, C., Formenti, P., Gratien, A., Michoud, V., Cantrell, C., Bauville, A., Bergé, A., Cazaunau, M., Chevaillier, S., Cirtog, M., Coll, P., D'Anna, B., de Brito, J. F., De Haan, D. O., Dignum, J. R., Deshmukh, S., Favez, O., Flaud, P.-M., Gaimoz, C., Hawkins, L. N., Kammer, J., Language, B., Maisonneuve, F., Močnik, G., Perraudin, E., Petit, J.-E., Acharja, P., Poulain, L., Pouyes, P., Pronovost, E. D., Riffault, V., Roundtree, K. I., Shahin, M., Siour, G., Villenave, E., Zapf, P., Foret, G., Doussin, J.-F., and Beekmann, M.: Aerosol spectral optical properties in the Paris urban area, and its peri−urban and forested surroundings during summer 2022 from ACROSS surface observations, EGUsphere [preprint], https://doi.org/10.5194/egusphere-2024-2299, 2024. 
+
 ---
 
 Please, report any issues to @mail
