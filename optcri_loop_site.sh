@@ -1,19 +1,19 @@
 #!/bin/bash
-export PYTHONUNBUFFERED=true
+#export PYTHONUNBUFFERED=true
 
-module load anaconda3-py/
+#module load anaconda3-py/
 
-env_name="OPTCRI"
+#env_name="OPTCRI"
 
-conda activate $env_name
-echo "Loaded conda $env_name environment"
+#conda activate $env_name
+#echo "Loaded conda $env_name environment"
 
 
-firstdate=20220619
-lastdate=20220620 #726
-ndays=1
-site_list="PRG"
-sim_list="median" #median mean q1 q3 errm errp"
+#firstdate=20220619
+#lastdate=20220620 #726
+#ndays=1
+#site_list="PRG"
+#sim_list="median" #median mean q1 q3 errm errp"
 #sim_list="median"
 #########################END USER INPUT
 
