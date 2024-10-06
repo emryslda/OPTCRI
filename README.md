@@ -17,9 +17,9 @@ mail: ludovico.diantonio@lisa.ipsl.fr
 **Reference**: Di Antonio et al, 2024
 
 This program is used to calculate the **aerosol complex refractive index** from:
-- **Absorption**
-- **Scattering**
-- **Size distribution surface data**
+- **aerosol absorption coefficient ($\beta_{abs}$ Mm-1)**
+- **aerosol scattering coefficent ($\beta_{sca}$ Mm-1)**
+- **aerosol particle size distribution (e.g. dN/dlog #.cm-3)**
 
 ---
 
@@ -39,7 +39,6 @@ input data are under inputs folder:
 inputs/data/PRG/CTRL_mean_SMPS/absorption_CTRL.csv
 TIME                    ABS_COEFF(370)          ABS_COEFF(470)          ABS_COEFF(520)          ABS_COEFF(590)          ABS_COEFF(660)          ABS_COEFF(880)          ABS_COEFF(950)
 2022-06-15 00:00:00     16.297511078834184      11.97029132079622       10.46485663028755       8.781774642197588       7.633109543864801       5.471914732366452       5.092368220873601
-2022-06-15 01:00:00     15.177214676861267      11.47543332318966       10.13322301922112       8.60217719644147        7.495997828071392       5.415566507655092       5.070814452298837
 
 ```
 
@@ -78,11 +77,15 @@ ndays is the is the ending day in %Y%m%d format
 
 optcri.par is a generic par that you have to modify to your needs.
 
-LEVEL 2 input data are avaialable at https://across.aeris-data.fr/
 
-Please, report any issues to @mail
 
+Absorption, scattering and particle size distribution LEVEL 2 input data are avaialable at https://across.aeris-data.fr/
+
+
+---
 ### Reference
 
 Di Antonio, L., Di Biagio, C., Formenti, P., Gratien, A., Michoud, V., Cantrell, C., Bauville, A., Bergé, A., Cazaunau, M., Chevaillier, S., Cirtog, M., Coll, P., D'Anna, B., de Brito, J. F., De Haan, D. O., Dignum, J. R., Deshmukh, S., Favez, O., Flaud, P.-M., Gaimoz, C., Hawkins, L. N., Kammer, J., Language, B., Maisonneuve, F., Močnik, G., Perraudin, E., Petit, J.-E., Acharja, P., Poulain, L., Pouyes, P., Pronovost, E. D., Riffault, V., Roundtree, K. I., Shahin, M., Siour, G., Villenave, E., Zapf, P., Foret, G., Doussin, J.-F., and Beekmann, M.: Aerosol spectral optical properties in the Paris urban area, and its peri−urban and forested surroundings during summer 2022 from ACROSS surface observations, EGUsphere [preprint], https://doi.org/10.5194/egusphere-2024-2299, 2024. 
+---
 
+Please, report any issues to @mail
