@@ -5,7 +5,7 @@ inputs/aux_inputs
 !inputs/aux_inputs/PRG
 inputs/LUT
 outputs
-
+.ipynb_checkpoints
 #Files
 *.log
 *.out
