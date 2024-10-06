@@ -4,9 +4,9 @@ module load anaconda3-py/
 env_name=OPTCRI
 conda activate $env_name
 
-firstdate=20220618
-lastdate=20220725
-ndays=1
+firstdate=$2
+lastdate=$3
+ndays=$4 
 
 
 
@@ -14,19 +14,22 @@ ndays=1
 
 dir=$PWD
 export optcriparams=$1
-echo "period:${firstdate}-${lastdate}"
 
 export my_awk=awk
 
 
-if [[ $# -lt 1  || $1 == '--help' || $1 == '--h' ]] ; then
-    echo "Usage: ./go.sh <param_file>                 "
-    echo " All 3 parameters are mandatory             "
-    echo "   <param_file> : optcri.par parameter file "
+if [[ $# -lt 4  || $1 == '--help' || $1 == '--h' ]] ; then
+    echo "Usage: ./optcri.sh   <param_file> dstart dend ndays                "
+    echo " All 4 parameters are mandatory                                    "
+    echo "   <param_file> : optcri.par parameter file                        "
+    echo "   <dstart> : start date in the %Y%m%d format (e.g. 20210622)      "
+    echo "   <dend>   : end date in the %Y%m%d format (e.g. 20210623)        "
+    echo "   <ndays>  : output frequency in days (recommended ndays=1)       "
     exit 1
 fi
 
 
+echo "period:${firstdate}-${lastdate}"
 cat > Makefile<<EOF
 clean:
 	touch ${optcriparams}.sh
@@ -47,9 +50,13 @@ while [ $di -lt $lastdate ] ; do
    dstart=$(date -d $di '+%Y-%m-%d %H:%M:%S')
    dend=`date -u -d "$di $ndays days" +%Y%m%d`
    dend=$(date -d $dend '+%Y-%m-%d %H:%M:%S')
-   echo
-   echo "Running OPTCRI" $dstart " " $dend
-   echo
+   
+   if [ "$lutflag" -eq 1 ]; then
+
+               echo
+               echo "Running OPTCRI" $dstart " " $dend
+               echo
+   fi
    
    cat ${inputf}/config/input.sed | sed "s|__DSTART__|${dstart}|" \
    		 | sed "s|__DEND__|${dend}|"      \
@@ -99,8 +106,18 @@ while [ $di -lt $lastdate ] ; do
    		 | sed "s|__SLAB__|${sitelab}|"      \
    				 > ${inputf}/config/input.yaml
    cd ${dir}/src/model
-   
-   python OPTCRI.py
+  
+   if [ "$lutflag" -eq 0 ]; then
+        echo "lutflag is equal to 0, making LUT tables...and exit"
+        python make_LUT.py || exit 1
+        exit
+   else
+       :
+   fi
+
+   python OPTCRI.py || exit 1
+
+
    
    di=`date -u -d "$di $ndays days" +%Y%m%d`
    cd $dir

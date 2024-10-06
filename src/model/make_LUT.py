@@ -34,9 +34,6 @@ matplotlib.use('Agg')
 
 print("End Import Libraries...")
 print("")
-print("Make LUT program...")
-
-
 
 # READ INPUTS
 with open('../../inputs/config/input.yaml', 'r') as file:
@@ -69,13 +66,14 @@ wl_path=inputs["INPUT_opt"]['wl']
 wavel=pd.read_csv(aux_path+'/'+wl_path,names=["wavel"])["wavel"].values
 
 save_out=inputs["OUTPUTS"]["save_out"]
+
 plot_inputs=inputs["OUTPUTS"]["plot_inputs"]
 plot_outputs=inputs["OUTPUTS"]["plot_outputs"]
 plot_size=inputs["OUTPUTS"]["plot_size"]
 
 
 
-# LOAD SIZE DISTRIBUTION DATA
+# LOAD diameters for size distribution
 
 diamdlogf=inputs["INPUT_obs"]['particle_size_distribution']["diameters"]
 diamdlog=pd.read_csv(aux_path+"/"+diamdlogf,sep="\t")
@@ -94,6 +92,7 @@ print("")
 print("mean shape_factor:", np.mean(shape_factor))
 print("")
 diam=diam/np.array(shape_factor)
+
 
 # FUNCTIONS USEFUL
 def init_RI(nmin=1.1,nmax=2,kmin=0.001,kmax=0.15,pnx=0.01,pkx=0.001):
@@ -128,7 +127,6 @@ def QSCA(m,x,tmin,tmax,nt):
 def form(number):
     return '{:.3f}'.format(number)
 
-
 # PARAMETERS INITIALIZATION
 # modif pour le qsca  
 inputs["INPUT_opt"]["nmin"]
@@ -149,29 +147,25 @@ dtheta=np.diff(theta*np.pi/180) #radians
 mu=np.cos(theta*np.pi/180) #cos(theta)
 stheta=np.sin(theta*np.pi/180) #sintheta
 nvec,kvec=init_RI(nmin=nmin,nmax=nmax,kmin=kmin,kmax=kmax,pnx=pnx,pkx=pkx)
-#evite division by zero
 
-if kvec[0]==0:
-    kvec[0]=0.000001
 
 sizep,cross_section_area=init_params(diam,wavel)
 qext,qabs,qsca,qback,g,qsca_noc=init_mie(nvec,kvec,wavel,sizep)
 
+
 LUT=inputs["LUT"]["LUT_flag"]
-if LUT==0:
-    try:
-        np.load(LUT_path+"/"+"qext_"+comm+".npy")
-        print("LUT present...please use LUT_flag=1 or delete the existing files")
-        sys.exit()
-    except:
-        pass
 LUT_path=inputs["LUT"]["LUT_folder"]
-print("LUT in ",LUT_path)
+
+
 nwl=len(wavel)
 nki=len(kvec)
 nni=len(nvec)
 
-if LUT==0:
+print("LUT for site="+site)
+print('Range of nmin={0}-nmax={1} kmin={2}-kmax={3} for wavelength {4} nm'.format(nmin,nmax,kmin,kmax,wavel))
+
+
+if LUT==0:    
     ####initialize qext, qsca and qabs at different wavelenghts
     """
     initialize the wavelenght qext, qsca, qabs
@@ -193,12 +187,17 @@ if LUT==0:
                     S1,S2 = miepython.mie_S1_S2(complex(str(n_i)+'-'+ str(k_i)+"j"),sizep[ichi,iwl],mu,'wiscombe')
                     S12=(np.abs(S1)**(2)+np.abs(S2)**(2))
                     qsca_noc[iwl,ini,iki,ichi]=np.sum(S12*stheta*dtheta[0]/(sizep[ichi,iwl]*sizep[ichi,iwl]))
-    # SAVE LUT
-    np.save(LUT_path+"/"+"qext_"+comm,qext)
-    np.save(LUT_path+"/"+"qsca_"+comm,qsca)
-    np.save(LUT_path+"/"+"qback_"+comm,qback)
-    np.save(LUT_path+"/"+"g_"+comm,g)
-    np.save(LUT_path+"/"+"qsca_nocalib_"+comm,qsca_noc)
-    print("LUT Ok, created and saved at:",LUT_path+"/")
-    print("\now run the code again with LUT_flag=1")
+    
+    dir_path = pathlib.Path(LUT_path+"/"+site)
+    # Crea la directory
+    dir_path.mkdir(parents=True, exist_ok=True)
+    # Save LUT
+    np.save(LUT_path+"/"+site+"/qext_"+comm,qext)
+    np.save(LUT_path+"/"+site+"/qsca_"+comm,qsca)
+    np.save(LUT_path+"/"+site+"/qback_"+comm,qback)
+    np.save(LUT_path+"/"+site+"/g_"+comm,g)
+    np.save(LUT_path+"/"+site+"/qsca_nocalib_"+comm,qsca_noc)
+    print("LUT Ok, created and saved at:",LUT_path+"/"+site+"/")
+    print("\n Now run the code again with LUT_flag=1")
     sys.exit()
+

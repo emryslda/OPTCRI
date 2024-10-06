@@ -445,30 +445,35 @@ qext,qabs,qsca,qback,g,qsca_noc=init_mie(nvec,kvec,wavel,sizep)
 csca=init_csca(df_m,wavel,sizep)
 
 
-
-
 LUT=inputs["LUT"]["LUT_flag"]
-if LUT==0:
-    try:
-        np.load(LUT_path+"/"+"qext_"+comm+".npy")
-        print("LUT present...please use LUT_flag=1 or delete the existing files")
-        sys.exit()
-    except:
-        pass
 LUT_path=inputs["LUT"]["LUT_folder"]
+
+try:
+    np.load(LUT_path+"/"+site+"/qext_"+comm+".npy")
+#    np.load(LUT_path+"/"+"qext_"+comm+".npy")
+#    np.load(LUT_path+"/"+"qsca_"+comm+".npy")
+#    np.load(LUT_path+"/"+"qback_"+comm+".npy")
+#    np.load(LUT_path+"/"+"g_"+comm+".npy")
+#    np.load(LUT_path+"/"+"qsca_nocalib_"+comm+".npy")
+#    print("LUT present...please use LUT_flag=1 to avoid recreating the LUT")
+except:
+    print("Oops!  Look up tables for Mie Calculations not found...launch with $lutflag=0 in the par file first...bye")
+    sys.exit()
+
 
 ntime=len(df_m)
 nwl=len(wavel)
 nki=len(kvec)
 nni=len(nvec)
 
+"""
 if LUT==0:
     ####initialize qext, qsca and qabs at different wavelenghts
-    """
+    
     initialize the wavelenght qext, qsca, qabs
     # it takes time, go for a coffee
     
-    """
+    
     print("Creating LUT...you may go for a long coffee...")
     for iwl in range(nwl):
         print("LUT for wavelength:",wavel[iwl],'nm')
@@ -494,13 +499,14 @@ if LUT==0:
     print("\now run the code again with LUT_flag=1")
     sys.exit()
 else:
-    #Read LUT
-    print("LUT READ from", LUT_path)
-    qext=np.load(LUT_path+"/"+"qext_"+comm+".npy")
-    qsca=np.load(LUT_path+"/"+"qsca_"+comm+".npy")
-    qback=np.load(LUT_path+"/"+"qback_"+comm+".npy")
-    g=np.load(LUT_path+"/"+"g_"+comm+".npy")
-    qsca_noc=np.load(LUT_path+"/"+"qsca_nocalib_"+comm+".npy")
+"""
+#Read LUT
+print("Reading LUT from", LUT_path)
+qext=np.load(LUT_path+"/"+site+"/qext_"+comm+".npy")
+qsca=np.load(LUT_path+"/"+site+"/qsca_"+comm+".npy")
+qback=np.load(LUT_path+"/"+site+"/qback_"+comm+".npy")
+g=np.load(LUT_path+"/"+site+"/g_"+comm+".npy")
+qsca_noc=np.load(LUT_path+"/"+site+"/qsca_nocalib_"+comm+".npy")
 
 
 for itime in range(ntime):  

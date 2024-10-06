@@ -43,9 +43,13 @@ for site in $site_list;do
 	   dstart=$(date -d $di '+%Y-%m-%d %H:%M:%S')
 	   dend=`date -u -d "$di $ndays days" +%Y%m%d`
 	   dend=$(date -d $dend '+%Y-%m-%d %H:%M:%S')
-	   echo
-	   echo "Running OPTCRI" $dstart " " $dend
-	   echo
+
+	   if [ "$lutflag" -eq 1 ]; then
+
+	       echo
+	       echo "Running OPTCRI" $dstart " " $dend
+	       echo
+	   fi    
 	   
 	   cat ${inputf}/config/input.sed | sed "s|__DSTART__|${dstart}|" \
 	   		 | sed "s|__DEND__|${dend}|"      \
@@ -95,8 +99,15 @@ for site in $site_list;do
 	   		 | sed "s|__SLAB__|${sitelab}|"      \
 	   				 > ${inputf}/config/input.yaml
 	   cd ${dir}/src/model
-	   
-	   #python OPTCRI_test.py #|| exit 1 
+            
+           if [ "$lutflag" -eq 0 ]; then
+               echo "lutflag is equal to 0, making LUT tables...and exit"
+               python make_LUT.py || exit 1
+	       exit
+           else
+               :
+           fi
+             	   
 	   python OPTCRI.py || exit 1 
 	   
 	   di=`date -u -d "$di $ndays days" +%Y%m%d`

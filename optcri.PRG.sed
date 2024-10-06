@@ -66,7 +66,7 @@
 # Look up tables instructions
 
  [$lutfolder]        Look up table folder    (full_path)                                                                  : ${dir}/${inputf}/LUT
- [$lutflag]          Look up table present (0/1)                                                                          : 1
+ [$lutflag]          Look up table present (0/1)                                                                          : 0
 
 # Output directory 
 

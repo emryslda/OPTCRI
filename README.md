@@ -13,8 +13,6 @@ mail: ludovico.diantonio@lisa.ipsl.fr
 ---
 
 
-## Program Version Information
-
 **Version**: `v1.0`
 **Reference**: Di Antonio et al, 2024
 
@@ -59,28 +57,26 @@ For the **PRG (urban)** site, modify the following file:
 
 optcri.PRG.sed
 
-and launch the program as:
+( it will look for a file like optcri.$site.par where $site is PRG)
+
+Afterwards it is necessary to create the LUT. In this regards run the program with $lutflag=0:
 
 ```bash
 ./run.sh
 ```
+This will create LUT tables under input/LUT/PRG/.
 
-or you can run the program by modifying the opticri.sh file:
+Now you can set $lutflag==1 and run th file (./run.sh).
 
+you can run OPTCRI also by running:
 ```bash
-module load anaconda3-py/
-env_name=OPTCRI
-conda activate $env_name
-
-firstdate=20220618
-lastdate=20220619
-ndays=1
+./optcri.sh optcri.par dstart dend ndays
 ```
+where dstart is the starting day in %Y%m%d format
+where dend  is the ending day in %Y%m%d format
+ndays is the is the ending day in %Y%m%d format
 
-and launch 
-```bash
-./optcri.sh optcri.par
-```
+optcri.par is a generic par that you have to modify to your needs.
 
 LEVEL 2 input data are avaialable at https://across.aeris-data.fr/
 
