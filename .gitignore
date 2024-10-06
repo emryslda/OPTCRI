@@ -1,6 +1,5 @@
 #Folders
 
-inputs/data/*
 inputs/aux_inputs/*
 inputs/aux_inputs/PRG/SMPS/
 inputs/aux_inputs/PRG/SMPS_GRIMM/
@@ -8,7 +7,8 @@ inputs/LUT
 inputs/config/input.yaml
 outputs
 
-!inputs/data/PRG/CTRL_median_SMPS/
+!inputs/data/PRG
+inputs/data/*
 !inputs/aux_inputs/PRG/
 
 .ipynb_checkpoints
