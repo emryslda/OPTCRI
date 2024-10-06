@@ -39,7 +39,7 @@ print("Make LUT program...")
 
 
 # READ INPUTS
-with open('../config/input.yaml', 'r') as file:
+with open('../../inputs/config/input.yaml', 'r') as file:
     inputs = yaml.safe_load(file)
 
 site=inputs["SITE"]

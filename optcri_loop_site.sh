@@ -93,7 +93,7 @@ for site in $site_list;do
 	   		 | sed "s|__LAB__|${labelsim}|"      \
 	   		 | sed "s|__DATAIN__|${datain}|"      \
 	   		 | sed "s|__SLAB__|${sitelab}|"      \
-	   				 > ${dir}/src/config/input.yaml
+	   				 > ${inputf}/config/input.yaml
 	   cd ${dir}/src/model
 	   
 	   #python OPTCRI_test.py #|| exit 1 
